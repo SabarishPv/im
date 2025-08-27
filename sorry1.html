@@ -2,302 +2,274 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgive Me Among the Stars</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --text-color-light: #dcdcdc;
-            --text-color-dark: #ffffff;
-            --accent-color: #ff9ecb;
-            --heart-color: #ff4d6d;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgive Me Among the Stars</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-color-light: #dcdcdc;
+      --text-color-dark: #ffffff;
+      --accent-color: #ff9ecb;
+      --heart-color: #ff4d6d;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Lato', sans-serif;
-            color: var(--text-color-light);
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--text-color-light);
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow-x: hidden;
+      transition: filter 0.5s ease;
+    }
 
-        .stars {
-            width: 1px;
-            height: 1px;
-            background: transparent;
-            box-shadow: 2000px 1000px #fff, 1500px 200px #fff, 300px 700px #fff, 1800px 1500px #fff, 1200px 900px #fff;
-            animation: animStar 100s linear infinite;
-        }
+    body.blur {
+      filter: blur(8px);
+    }
 
-        @keyframes animStar {
-            from {
-                transform: translateY(0px);
-            }
+    .stars {
+      width: 1px;
+      height: 1px;
+      background: transparent;
+      box-shadow: 2000px 1000px #fff, 1500px 200px #fff, 300px 700px #fff, 1800px 1500px #fff, 1200px 900px #fff;
+      animation: animStar 100s linear infinite;
+    }
 
-            to {
-                transform: translateY(-2000px);
-            }
-        }
+    @keyframes animStar {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-2000px); }
+    }
 
-        .planet {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffb347, #ffcc33, #ff7e5f);
-            margin: 2rem auto;
-            animation: rotatePlanet 20s linear infinite;
-        }
+    .planet {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffb347, #ffcc33, #ff7e5f);
+      margin: 2rem auto;
+      animation: rotatePlanet 20s linear infinite;
+    }
 
-        @keyframes rotatePlanet {
-            from {
-                transform: rotate(0deg);
-            }
+    @keyframes rotatePlanet {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-            to {
-                transform: rotate(360deg);
-            }
-        }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--text-color-dark);
+    }
 
-        h1,
-        h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--text-color-dark);
-        }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-style: italic;
+      animation: fadeIn 2s ease-in-out;
+    }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-style: italic;
-            animation: fadeIn 2s ease-in-out;
-        }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      animation: fadeIn 2s ease-in-out 0.5s backwards;
+    }
 
-        .subtitle {
-            font-size: 1.2rem;
-            margin-top: 1rem;
-            animation: fadeIn 2s ease-in-out 0.5s backwards;
-        }
+    .heart {
+      font-size: 3rem;
+      color: var(--heart-color);
+      margin-top: 2rem;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
 
-        .heart {
-            font-size: 3rem;
-            color: var(--heart-color);
-            margin-top: 2rem;
-            animation: pulse 1.5s infinite ease-in-out;
-        }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
 
-        @keyframes pulse {
+    .content-section {
+      padding: 5rem 0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.2s ease;
+    }
 
-            0%,
-            100% {
-                transform: scale(1);
-            }
+    .content-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-            50% {
-                transform: scale(1.2);
-            }
-        }
+    .apology-block {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
 
-        .content-section {
-            padding: 5rem 0;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.2s ease;
-        }
+    .apology-block h2 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
 
-        .content-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .final-plea {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .apology-block {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
+    .final-plea .forgive-button {
+      background: linear-gradient(45deg, var(--accent-color), var(--heart-color));
+      color: #fff;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
 
-        .apology-block h2 {
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
+    .final-plea .forgive-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
 
-        .final-plea {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    .overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex; justify-content: center; align-items: center;
+      opacity: 0; visibility: hidden; transition: 0.5s ease;
+      z-index: 1000;
+    }
 
-        .final-plea .forgive-button {
-            background: linear-gradient(45deg, var(--accent-color), var(--heart-color));
-            color: #fff;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-top: 2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
+    .overlay.active { opacity: 1; visibility: visible; }
 
-        .final-plea .forgive-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-        }
+    .modal-content { text-align: center; color: #fff; }
+    .modal-content .final-heart { font-size: 4rem; animation: pulse 2s infinite; }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.5s ease;
-        }
+    .asteroid {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #888, #444);
+      border-radius: 50%;
+      top: -100px;
+      left: -100px;
+      animation: flyAsteroid 4s linear forwards;
+    }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+    @keyframes flyAsteroid {
+      from { transform: translate(-200px, -200px) rotate(0deg); }
+      to { transform: translate(1200px, 800px) rotate(720deg); }
+    }
 
-        .modal-content {
-            text-align: center;
-            color: #fff;
-        }
-
-        .modal-content .final-heart {
-            font-size: 4rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
 </head>
 
 <body>
-    <div class="stars"></div>
+  <div class="stars"></div>
 
-    <div class="overlay" id="overlay">
-        <div class="modal-content">
-            <div class="final-heart">❤️</div>
-            <h2>You are my universe.</h2>
-            <p>Every star, every planet, every galaxy pales compared to the light you bring to me. Please forgive me.
-            </p>
-            <button class="close-btn" id="close-btn">Close</button>
-        </div>
+  <div class="overlay" id="overlay">
+    <div class="modal-content">
+      <div class="asteroid"></div>
+      <div class="final-heart">❤️</div>
+      <h2>You are my universe.</h2>
+      <p>Every star, every planet, every galaxy pales compared to the light you bring to me. Please forgive me.</p>
+      <button class="close-btn" id="close-btn">Close</button>
     </div>
+  </div>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="planet"></div>
-                <h1>I am so sorry, my star...</h1>
-                <p class="subtitle">I spoke with distance, when I should have spoken with warmth as infinite as the
-                    cosmos.</p>
-                <div class="heart">❤️</div>
-            </div>
-        </section>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="planet"></div>
+        <h1>I am so sorry, my star...</h1>
+        <p class="subtitle">I spoke with distance, when I should have spoken with warmth as infinite as the cosmos.</p>
+        <div class="heart">❤️</div>
+      </div>
+    </section>
 
-        <div class="container">
-            <section class="content-section">
-                <div class="apology-block">
-                    <h2>My Galaxy of Regret</h2>
-                    <p>I made you feel unimportant, like a star dimmed. But to me, you are the brightest in my sky. I
-                        regret every careless word.</p>
-                </div>
-                <div class="apology-block">
-                    <h2>On My Knees, Orbiting You</h2>
-                    <p>If I were a planet, I’d spend eternity orbiting your light. Right now, I kneel in apology, asking
-                        for your gravity to pull me back close.</p>
-                </div>
-                <div class="apology-block">
-                    <h2>A Promise Among the Stars</h2>
-                    <p>I promise never to let space grow between us again. My words will be gentle, my actions steady,
-                        and my love endless—like the universe itself.</p>
-                </div>
-            </section>
-
-            <section class="content-section final-plea" id="forgiveness">
-                <h2>There’s No Excuse</h2>
-                <p>I let distance slip into my voice when you deserved the warmth of a thousand suns. Please let me make
-                    it right. Forgive me, my galaxy, my forever.</p>
-                <a href="#" class="forgive-button" id="forgive-button">Forgive me 🌌</a>
-            </section>
+    <div class="container">
+      <section class="content-section">
+        <div class="apology-block">
+          <h2>My Galaxy of Regret</h2>
+          <p>I made you feel unimportant, like a star dimmed. But to me, you are the brightest in my sky. I regret every careless word.</p>
         </div>
-    </main>
+        <div class="apology-block">
+          <h2>On My Knees, Orbiting You</h2>
+          <p>If I were a planet, I’d spend eternity orbiting your light. Right now, I kneel in apology, asking for your gravity to pull me back close.</p>
+        </div>
+        <div class="apology-block">
+          <h2>A Promise Among the Stars</h2>
+          <p>I promise never to let space grow between us again. My words will be gentle, my actions steady, and my love endless—like the universe itself.</p>
+        </div>
+      </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const sections = document.querySelectorAll('.content-section');
-            const forgiveButton = document.getElementById('forgive-button');
-            const overlay = document.getElementById('overlay');
-            const closeBtn = document.getElementById('close-btn');
+      <section class="content-section final-plea" id="forgiveness">
+        <h2>There’s No Excuse</h2>
+        <p>I let distance slip into my voice when you deserved the warmth of a thousand suns. Please let me make it right. Forgive me, my galaxy, my forever.</p>
+        <a href="#" class="forgive-button" id="forgive-button">Forgive me 🌌</a>
+      </section>
+    </div>
+  </main>
 
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.2 });
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sections = document.querySelectorAll('.content-section');
+      const forgiveButton = document.getElementById('forgive-button');
+      const overlay = document.getElementById('overlay');
+      const closeBtn = document.getElementById('close-btn');
+      const body = document.body;
 
-            sections.forEach(section => observer.observe(section));
-
-            forgiveButton.addEventListener('click', e => {
-                e.preventDefault();
-                overlay.classList.add('active');
-            });
-
-            closeBtn.addEventListener('click', e => {
-                e.preventDefault();
-                overlay.classList.remove('active');
-            });
-
-            overlay.addEventListener('click', e => {
-                if (e.target === overlay) overlay.classList.remove('active');
-            });
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    </script>
-</body>
+      }, { threshold: 0.2 });
 
+      sections.forEach(section => observer.observe(section));
+
+      forgiveButton.addEventListener('click', e => {
+        e.preventDefault();
+        overlay.classList.add('active');
+        body.classList.add('blur');
+      });
+
+      closeBtn.addEventListener('click', e => {
+        e.preventDefault();
+        overlay.classList.remove('active');
+        body.classList.remove('blur');
+      });
+
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+          body.classList.remove('blur');
+        }
+      });
+    });
+  </script>
+</body>
 </html>
