@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color-1: #fde2e4;
+            --bg-color-2: #e2e2f6;
+            --bg-color-3: #dcf2f1;
+            --bg-color-4: #f7d9d9;
+            --text-color-dark: #3a3a3a;
+            --text-color-light: #5c5c5c;
+            --accent-color: #c97c94;
+            --heart-color: #ff4d6d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-color-dark);
+            line-height: 1.8;
+            background: linear-gradient(300deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
+            background-size: 400% 400%;
+            animation: gradientShift 25s ease infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-color-dark);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-style: italic;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color-light);
+            margin-top: 1rem;
+            animation: fadeIn 2s ease-in-out 0.5s;
+            animation-fill-mode: backwards;
+        }
+
+        .heart {
+            font-size: 3rem;
+            color: var(--heart-color);
+            margin-top: 2rem;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 1rem;
+            color: var(--text-color-light);
+            animation: fadeIn 2s ease-in-out 1s;
+            animation-fill-mode: backwards;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            margin-top: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Final Section --- */
+        .final-plea {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .final-plea h2 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            margin-bottom: 2rem;
+            animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+            animation-delay: 0.5s;
+        }
+
+        .final-plea p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: var(--text-color-light);
+            animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+            animation-delay: 1s;
+        }
+
+        .final-plea .forgive-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: text-focus-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+            animation-delay: 1.5s;
+        }
+
+        .final-plea .forgive-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* --- Click Effect Overlay --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            text-align: center;
+            color: #fff;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+        }
+
+        .overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content .final-heart {
+            font-size: 5rem;
+            color: var(--heart-color);
+            animation: finalPulse 2s infinite ease-in-out;
+        }
+
+        .modal-content h2 {
+            font-size: 3rem;
+            margin-top: 2rem;
+            color: #fff;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            color: #eee;
+            margin-top: 1rem;
+        }
+
+        .close-btn {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #fff;
+            background: none;
+            border: 1px solid #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes finalPulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px var(--heart-color);
+            }
+
+            50% {
+                transform: scale(1.15);
+                text-shadow: 0 0 30px var(--heart-color);
+            }
+
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px var(--heart-color);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes text-focus-in {
+            0% {
+                filter: blur(12px);
+                opacity: 0;
+            }
+
+            100% {
+                filter: blur(0px);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="modal-content">
+            <div class="final-heart">❤️</div>
+            <h2>You mean the world to me.</h2>
+            <p>Thank you for hearing me out.</p>
+            <button class="close-btn" id="close-btn">Close</button>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>I am so sorry...</h1>
+                <p class="subtitle">Words can't fix what I did, but please let me try.</p>
+                <div class="heart">❤️</div>
+            </div>
+            <div class="scroll-indicator">
+                Please scroll
+                <span>&darr;</span>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="content-section final-plea" id="forgiveness">
+                <h2>There's No Excuse</h2>
+                <p>
+                    I've been replaying our conversation over and over, and I feel terrible. The way I spoke to you was
+                    distant and nonchalant. My carelessness was hurtful, and I deeply regret it. My actions made you
+                    feel unimportant, and nothing could be further from the truth. I messed up, and I promise to be
+                    better.
+                </p>
+                <a href="#" class="forgive-button" id="forgive-button">Please click here</a>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.content-section');
+            const forgiveButton = document.getElementById('forgive-button');
+            const overlay = document.getElementById('overlay');
+            const closeBtn = document.getElementById('close-btn');
+
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Button click effect
+            forgiveButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                overlay.classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                overlay.classList.remove('active');
+            });
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
