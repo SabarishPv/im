@@ -159,6 +159,7 @@
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.85);
       display: flex; justify-content: center; align-items: center;
+      flex-direction: column;
       opacity: 0; visibility: hidden; transition: 0.5s ease;
       z-index: 1000;
     }
@@ -181,7 +182,7 @@
 
     @keyframes flyAsteroid {
       from { transform: translate(-200px, -200px) rotate(0deg); }
-      to { transform: translate(1200px, 800px) rotate(720deg); }
+      to { transform: translate(1400px, 900px) rotate(720deg); }
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -193,7 +194,6 @@
 
   <div class="overlay" id="overlay">
     <div class="modal-content">
-      <div class="asteroid"></div>
       <div class="final-heart">❤️</div>
       <h2>You are my universe.</h2>
       <p>Every star, every planet, every galaxy pales compared to the light you bring to me. Please forgive me.</p>
@@ -255,18 +255,27 @@
         e.preventDefault();
         overlay.classList.add('active');
         body.classList.add('blur');
+
+        const asteroid = document.createElement('div');
+        asteroid.classList.add('asteroid');
+        overlay.appendChild(asteroid);
       });
 
       closeBtn.addEventListener('click', e => {
         e.preventDefault();
         overlay.classList.remove('active');
         body.classList.remove('blur');
+
+        const asteroid = document.querySelector('.asteroid');
+        if (asteroid) asteroid.remove();
       });
 
       overlay.addEventListener('click', e => {
         if (e.target === overlay) {
           overlay.classList.remove('active');
           body.classList.remove('blur');
+          const asteroid = document.querySelector('.asteroid');
+          if (asteroid) asteroid.remove();
         }
       });
     });
