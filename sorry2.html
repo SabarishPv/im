@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Universe...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display.swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color-1: #000000;
+            --bg-color-2: #0c001c;
+            --bg-color-3: #1a0a2a;
+            --nebula-color-1: rgba(118, 75, 162, 0.3);
+            --nebula-color-2: rgba(109, 9, 121, 0.3);
+            --text-color-light: #f0f0f0;
+            --text-color-muted: #a0a0c0;
+            --accent-color: #fca3cc;
+            --heart-color: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color-light);
+            line-height: 1.9;
+            background-color: var(--bg-color-1);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Animated Gradient & Starry Background --- */
+        #universe-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(300deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
+            background-size: 300% 300%;
+            animation: gradientShift 30s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        .nebula {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--nebula-color-1), transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: drift 50s infinite alternate linear;
+            z-index: -1;
+        }
+
+        .nebula.one {
+            top: -150px;
+            left: -200px;
+        }
+
+        .nebula.two {
+            bottom: -200px;
+            right: -250px;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.1;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 0.9;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes drift {
+            from {
+                transform: translateX(-100px) translateY(50px) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(100px) translateY(-50px) rotate(180deg);
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-color-light);
+            text-shadow: 0 0 15px rgba(252, 163, 204, 0.3);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 10vw, 6rem);
+            font-style: italic;
+            animation: fadeInDown 2s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-color-muted);
+            margin-top: 1.5rem;
+            animation: fadeInUp 2s ease-out 0.5s;
+            animation-fill-mode: backwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 1rem;
+            color: var(--text-color-muted);
+            animation: fadeInUp 2s ease-out 1s;
+            animation-fill-mode: backwards;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 7rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1), transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section h2 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            margin-bottom: 2.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.2rem;
+            color: var(--text-color-muted);
+            max-width: 680px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .divider {
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 4rem auto;
+            border: none;
+            border-radius: 2px;
+            opacity: 0.5;
+            box-shadow: 0 0 15px rgba(248, 205, 218, 0.5);
+        }
+
+        .promise-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .promise-box h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        .final-plea .forgive-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #1d2b64;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(248, 205, 218, 0.2);
+        }
+
+        .final-plea .forgive-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(248, 205, 218, 0.3);
+        }
+
+        /* --- Click Effect Overlay --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            text-align: center;
+            color: #fff;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 1s ease 0.5s, opacity 1s ease 0.5s;
+        }
+
+        .overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-content h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: #fff;
+            font-style: italic;
+            text-shadow: 0 0 25px var(--accent-color);
+        }
+
+        .modal-content p {
+            font-size: 1.3rem;
+            color: var(--text-color-muted);
+            margin-top: 1rem;
+        }
+
+        .comet-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .comet {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 15px 5px white;
+            animation: shooting-star 10s linear forwards;
+            opacity: 0;
+        }
+
+        @keyframes shooting-star {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) translateX(100vw) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="universe-bg"></div>
+    <div class="nebula one"></div>
+    <div class="nebula two"></div>
+    <div id="stars-container"></div>
+
+    <div class="overlay" id="overlay">
+        <div class="comet-container" id="comet-container"></div>
+        <div class="modal-content">
+            <h2>You are my universe.</h2>
+            <p>Please, let's talk and find our orbit again.</p>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>I'm so sorry</h1>
+                <p class="subtitle">I created a distance between us. This is my attempt to cross that void.</p>
+            </div>
+            <div class="scroll-indicator">
+                For my guiding star
+                <span>&darr;</span>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="content-section" id="the-mistake">
+                <h2>There's No Excuse</h2>
+                <p>
+                    I've been replaying our conversation in the silence, and I hate the person I was. The way I spoke to
+                    you was distant, cold, and nonchalant. It was completely unfair, and I can't stand the thought of
+                    having made you feel that way.
+                </p>
+                <p>
+                    My carelessness was hurtful. My actions made you feel unimportant, and that is the absolute last
+                    thing in the world I ever want you to feel. I was wrong.
+                </p>
+            </section>
+
+            <hr class="divider">
+
+            <section class="content-section" id="the-gravity">
+                <h2>The Gravity of You</h2>
+                <p>
+                    Sometimes I get lost in my own head, in my own little world. But you... you are not just a part of
+                    my world. You are its center. You are the sun that my life orbits around, the gravity that keeps me
+                    grounded and whole.
+                </p>
+                <p>
+                    Without you, I'm just drifting. You give me direction, warmth, and light. I forgot that for a
+                    moment, and I am so sorry I let my own shadow fall upon you.
+                </p>
+            </section>
+
+            <hr class="divider">
+
+            <section class="content-section" id="the-emptiness">
+                <h2>My Universe Without Its Sun</h2>
+                <p>
+                    The silence after we spoke felt like the cold, empty vacuum of space. It made me realize that my
+                    world is dark and meaningless without your light in it. When I'm distant, I'm not just pushing you
+                    away; I'm pushing away my own happiness.
+                </p>
+                <p>
+                    Making you sad feels like a cosmic failure on my part, because my only purpose is to make you feel
+                    as loved and as vast as the night sky itself.
+                </p>
+            </section>
+
+            <hr class="divider">
+
+            <section class="content-section" id="promise">
+                <h2>My Unconditional Promise</h2>
+                <div class="promise-box">
+                    <h3>I am realigning my orbit.</h3>
+                    <p>
+                        I am kneeling down in my heart as I write this. I promise to be better. To be present. To listen
+                        not just with my ears, but with my whole heart. I promise to be the man you fell in love with,
+                        the man who would travel across galaxies just to see you smile.
+                    </p>
+                    <p>
+                        I love you. More than all the stars in the sky. My actions will prove it from this moment on.
+                    </p>
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <section class="content-section final-plea" id="forgiveness">
+                <h2>Can you forgive me?</h2>
+                <p>
+                    I know this can't fix everything instantly. But I hope it's a start. I'm ready to listen, to
+                    understand, and to do whatever it takes to earn back your trust and your beautiful smile.
+                </p>
+                <a href="#" class="forgive-button" id="forgive-button">This is my heartfelt plea</a>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Starry Background ---
+            const starsContainer = document.getElementById('stars-container');
+            const numStars = 150;
+            for (let i = 0; i < numStars; i++) {
+                let star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                const size = `${Math.random() * 2 + 1}px`;
+                star.style.width = size;
+                star.style.height = size;
+                star.style.animationDelay = `${Math.random() * 10}s`;
+                star.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                starsContainer.appendChild(star);
+            }
+
+            // --- Scroll Animations ---
+            const sections = document.querySelectorAll('.content-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+            sections.forEach(section => observer.observe(section));
+
+            // --- Button Click Effect ---
+            const forgiveButton = document.getElementById('forgive-button');
+            const overlay = document.getElementById('overlay');
+            const cometContainer = document.getElementById('comet-container');
+
+            forgiveButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                overlay.classList.add('active');
+
+                // Create shooting stars
+                let cometInterval = setInterval(function () {
+                    if (!overlay.classList.contains('active')) {
+                        clearInterval(cometInterval);
+                        cometContainer.innerHTML = '';
+                        return;
+                    }
+                    const comet = document.createElement('div');
+                    comet.className = 'comet';
+                    comet.style.top = `${Math.random() * 60 + 20}%`; // Start from a random vertical position
+                    comet.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                    cometContainer.appendChild(comet);
+                }, 1500);
+            });
+
+            overlay.addEventListener('click', function (e) {
+                overlay.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
